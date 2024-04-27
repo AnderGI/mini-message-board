@@ -1,0 +1,12 @@
+### Get All the messages
+GET http://localhost:3000
+
+
+### Add a new Message
+POST http://localhost:3000/new
+Content-Type: application/json
+
+{
+    "text": "Esto es un mensaje de prueba",
+    "user": "AnderGi"
+}

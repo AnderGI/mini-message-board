@@ -1,4 +1,8 @@
-- Use <coce>express-generator</code> to set up a basic project using whichever templating language you prefer. If you want, you can set it all up manually – it doesn’t really take that much longer.
+- Use <coce>express-generator</code> to set up a basic project using whichever templating language you prefer. If you want, you can set it all up manually – it doesn’t really take that much longer. (Optional)
+
+> [!NOTE]
+> Rather than using express generator I will use a rest-api pattern and also I will render the views without the
+> implict generator
 
 > [!TIP]
 > Here are links to some of the more popular templating language docs: PUG, EJS, Handlebars
