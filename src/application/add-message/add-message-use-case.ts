@@ -1,9 +1,15 @@
 import { Message } from "../../domain/Message.js";
 import { AddMessage } from "../../domain/MessageRepository.js";
+import { ensureMessageIsValid } from "../../domain/validation/ensure-message-is-valid.js";
 
 export const addInMemoryMessage: (repo:AddMessage) => (message:Message) => void = (repo) => {
     return async function (message) {
-        // Validar message
-          repo(message)
+        try{
+            ensureMessageIsValid(message)
+            repo(message)
+        }catch(err){
+            console.log(err)
+        }
+          
     }
 } 
