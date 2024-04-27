@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { Message } from "../model/Message.js";
+import { Message } from "../domain/Message.js";
+import { getMessages } from "../application/get-messages/get-messages-unit-case.js";
+import { AddInMemoryMessage, GetInMemoryMessages } from "../infrastructure/repositories/in-memory/InMemoryRepository.js";
+import { addInMemoryMessage } from "../application/add-message/add-message-use-case.js";
 
 
 const messages:Message[] = [
@@ -18,13 +21,15 @@ const messages:Message[] = [
 
 export const MessagesRouter = Router();
 
-MessagesRouter.get('/', (req, res) => {
-    res.status(200).json(messages)
+MessagesRouter.get('/', async (req, res) => {
+    const data: Message[] = await getMessages(GetInMemoryMessages)()
+    res.status(200).json(data)
 })
 
 // I will create a middelware which will get all the post and application/json type of requests
 // and modify the request body
 MessagesRouter.post('/new', (req, res) => {
     const {body} = req
-    res.status(200).json(body)
+    addInMemoryMessage(AddInMemoryMessage)(body)
+    res.status(200).json({"message": "Messages added"})
 })
