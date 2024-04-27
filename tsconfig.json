@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "ES6", // code to be compiled,
+        "module": "NodeNext", // Module system set to Node
+        "moduleResolution": "NodeNext", // set the module resolution
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitAny": true
+    }
+}
