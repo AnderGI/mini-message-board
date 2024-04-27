@@ -1,0 +1,30 @@
+doctype html 
+html(lang="es")
+    head   
+        title Message Board
+    body
+        main
+            h1 Mini Message Board
+            section
+                each message in messages=messages 
+                    article     
+                        header 
+                            h2 #{message.user}
+                        main 
+                            p #{message.text} 
+                            p #{message.added}
+        
+        footer 
+            h1 Add new message 
+            form(method="post" action="/new") 
+                section     
+                    label(for="username") Username: 
+                    input(type="text" name="username" id="username")
+                br
+                section
+                    label(for="text") Your message
+                    br
+                    textarea(cols="30", rows="10" type="text" name="text" id="text")
+                br
+                section 
+                    button(type="submit") Add

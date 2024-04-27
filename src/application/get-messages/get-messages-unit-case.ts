@@ -1,5 +1,5 @@
-import { Message } from "../../domain/Message.js";
-import { GetMessages } from "../../domain/MessageRepository.js";
+import { Message } from "../../domain/message/Message.js";
+import { GetMessages } from "../../domain/message/MessageRepository.js";
 
 export const getMessages: (repositoy:GetMessages) => () => Promise<Message[]> = (repositoy) => {
     return async function(){

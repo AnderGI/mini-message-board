@@ -1,5 +1,5 @@
-import { Message } from "../../../domain/Message.js";
-import { AddMessage, GetMessages } from "../../../domain/MessageRepository.js";
+import { Message } from "../../../domain/message/Message.js";
+import { AddMessage, GetMessages } from "../../../domain/message/MessageRepository.js";
 
 const messages:Message[] = [
     {

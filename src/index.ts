@@ -1,35 +1,24 @@
-import express, { NextFunction, Request, Response }  from "express";
-import { processMessagesApiEndpoints } from "./process-enpoints/process-api-endpoints.js";
-import { MessagesRouter } from "./routers/messages-router.js";
+import express  from "express";
+import { processMessagesApiEndpoints } from "./infrastructure/process-endpoints/message/process-api-endpoints.js";
+import { MessagesRouter } from "./infrastructure/routers/message/messages-router.js";
+import { handlePostJsonMiddleware } from "./infrastructure/middlewares/post-json-middleware.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express()
 const PORT = process.env.PORT ?? 3000;
+app.disable('x-powered-by')
 
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
 
-// Create a middlewrae the will handle POST and application/json requests
-// By modifiying the request body
+// Pug template engine config
+// set the directory where the template files are located
+// need absolute path
+app.set('views', path.join(dirname, 'infrastructure', 'views'))
+// set the view template engine to use
+app.set('view engine', 'pug')
 
-const handlePostJsonMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const {method, headers} = req;
-    	
-    if(method.toUpperCase() !== "POST") return next()
-    if(headers['content-type'] !== "application/json") return next();
-
-    // Get the request body info while data is arriving
-    let requestBufferData:Buffer[] = [];
-    req.on('data', (chunksOfData:Buffer) => {
-        requestBufferData.push(chunksOfData)
-    })
-
-    // Modify the request body so that i contains the JSON data when data arrival finishes
-    req.on('end', () => {
-
-        req.body = JSON.parse(Buffer.concat(requestBufferData).toString())
-        return next()
-    })
-
-    
-}
 
 app.use(handlePostJsonMiddleware)
 
