@@ -22,7 +22,7 @@ MessagesRouter.get('/new', async (req, res) => {
 // and modify the request body
 MessagesRouter.post('/new', (req, res) => {
     const {body} = req
-    //addInMemoryMessage(AddInMemoryMessage)(body)
-    //res.redirect("/")
-    res.send(body)
+    addInMemoryMessage(AddInMemoryMessage)(body)
+    res.redirect("/")
+    
 })

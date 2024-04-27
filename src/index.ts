@@ -4,6 +4,7 @@ import { MessagesRouter } from "./infrastructure/routers/message/messages-router
 import { handlePostJsonMiddleware } from "./infrastructure/middlewares/post-json-middleware.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { handlePostXWWWFormUrlEncodedData } from "./infrastructure/middlewares/post-x-www-form-urlencoded.js";
 
 const app = express()
 const PORT = process.env.PORT ?? 3000;
@@ -20,6 +21,9 @@ app.set('views', path.join(dirname, 'infrastructure', 'views'))
 app.set('view engine', 'pug')
 
 
+// POST application/x-www-form-urlencoded
+app.use(handlePostXWWWFormUrlEncodedData)
+// POST application/json
 app.use(handlePostJsonMiddleware)
 
 processMessagesApiEndpoints(app)(MessagesRouter)
