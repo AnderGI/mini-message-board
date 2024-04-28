@@ -19,7 +19,7 @@ MessagesRouter.get("/", async (req, res) => {
     res.status(200).render("index", { messages: data });
   } catch (err) {
     // send err to db or to some report
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).render("err500", { errorMessage: "Internal server error" });
   }
 });
 
@@ -36,6 +36,6 @@ MessagesRouter.post("/new", (req, res) => {
     res.status(200).redirect("/");
   } catch (err) {
     // send err to db or to some report
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).render("err500", { errorMessage: "Internal server error" });
   }
 });
