@@ -15,11 +15,12 @@ export const handlePostXWWWFormUrlEncodedData = (req:Request, res:Response, next
 
     req.on('end', () => {
         // example : username=Ander&text=Hola%20que%20tal
+        // when user tabs intro -> %0D%0A its added to text
         let userDataRecord:Record<string,string> = {};
         data.split("&").forEach(pair => {
             const [key, value] = pair.split("=")
             // add to it only if it does not exist
-            if(!(key in userDataRecord)) userDataRecord[key] = value.replace(/%20/g, ' ')
+            if(!(key in userDataRecord)) userDataRecord[key] = value
         })
         req.body = JSON.parse(
             JSON.stringify(userDataRecord)
