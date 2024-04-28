@@ -15,7 +15,7 @@ MessagesRouter.get('/', async (req, res) => {
 
 
 MessagesRouter.get('/new', async (req, res) => {
-    res.status(200).json("Add message page")
+    res.render('form')
 })
 
 // I will create a middelware which will get all the post and application/json type of requests

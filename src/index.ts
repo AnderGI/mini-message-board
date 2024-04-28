@@ -1,10 +1,11 @@
 import express  from "express";
 import { processMessagesApiEndpoints } from "./infrastructure/process-endpoints/message/process-api-endpoints.js";
 import { MessagesRouter } from "./infrastructure/routers/message/messages-router.js";
-import { handlePostJsonMiddleware } from "./infrastructure/middlewares/post-json-middleware.js";
+import { handlePostJsonMiddleware } from "./infrastructure/middlewares/post-requests/post-json-middleware.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import { handlePostXWWWFormUrlEncodedData } from "./infrastructure/middlewares/post-x-www-form-urlencoded.js";
+import { handlePostXWWWFormUrlEncodedData } from "./infrastructure/middlewares/post-requests/post-x-www-form-urlencoded.js";
+import { postRequestHandler } from "./infrastructure/middlewares/post-requests/post-request-handler.js";
 
 const app = express()
 const PORT = process.env.PORT ?? 3000;
@@ -22,10 +23,10 @@ app.set('view engine', 'pug')
 
 
 // POST application/x-www-form-urlencoded
-app.use(handlePostXWWWFormUrlEncodedData)
+// app.use(handlePostXWWWFormUrlEncodedData)
 // POST application/json
-app.use(handlePostJsonMiddleware)
-
+// app.use(handlePostJsonMiddleware)
+app.use(postRequestHandler);
 processMessagesApiEndpoints(app)(MessagesRouter)
 
 app.listen(PORT, () => {

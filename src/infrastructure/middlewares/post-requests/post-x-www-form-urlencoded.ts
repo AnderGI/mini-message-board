@@ -8,20 +8,19 @@ export const handlePostXWWWFormUrlEncodedData = (req:Request, res:Response, next
 
 
     let data:string = ''
-    let userDataRecord:Record<string,string> = {};
+    
     req.on('data', (chunk:Buffer) => {
         data += chunk.toString()
     })
 
     req.on('end', () => {
         // example : username=Ander&text=Hola%20que%20tal
-
+        let userDataRecord:Record<string,string> = {};
         data.split("&").forEach(pair => {
             const [key, value] = pair.split("=")
             // add to it only if it does not exist
             if(!(key in userDataRecord)) userDataRecord[key] = value.replace(/%20/g, ' ')
         })
-        console.log(userDataRecord)
         req.body = JSON.parse(
             JSON.stringify(userDataRecord)
         )

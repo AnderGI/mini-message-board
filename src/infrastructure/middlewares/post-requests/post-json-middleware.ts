@@ -9,14 +9,14 @@ export const handlePostJsonMiddleware = (req: Request, res: Response, next: Next
     if(headers['content-type'] !== "application/json") return next();
 
     // Get the request body info while data is arriving
-    let requestBufferData:Buffer[] = [];
+    let data:string= ''
     req.on('data', (chunksOfData:Buffer) => {
-        requestBufferData.push(chunksOfData)
+        data += chunksOfData.toString()
     })
 
     // Modify the request body so that i contains the JSON data when data arrival finishes
     req.on('end', () => {
-        req.body = JSON.parse(Buffer.concat(requestBufferData).toString())
+        req.body = JSON.parse(data)
         return next()
     })
 

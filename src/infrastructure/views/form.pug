@@ -1,0 +1,19 @@
+doctype html 
+html(lang="es")
+    head   
+        title Message Board
+    body
+        main
+            h1 Add new message 
+            form(method="post" action="/new") 
+                section     
+                    label(for="user") Username: 
+                    input(type="text" name="user" id="user" required="required")
+                br
+                section
+                    label(for="text") Your message
+                    br
+                    textarea(cols="30", rows="10" type="text" name="text" id="text" required="required")
+                br
+                section 
+                    button(type="submit") Add

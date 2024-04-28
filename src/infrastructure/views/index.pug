@@ -14,17 +14,6 @@ html(lang="es")
                             p #{message.text} 
                             p #{message.added}
         
-        footer 
-            h1 Add new message 
-            form(method="post" action="/new") 
-                section     
-                    label(for="user") Username: 
-                    input(type="text" name="user" id="user")
-                br
-                section
-                    label(for="text") Your message
-                    br
-                    textarea(cols="30", rows="10" type="text" name="text" id="text")
-                br
-                section 
-                    button(type="submit") Add
+        footer
+            p
+                a(href="/new") New form
