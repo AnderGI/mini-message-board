@@ -4,9 +4,11 @@ import { MessagesRouter } from "./infrastructure/routers/message/messages-router
 import path from "path";
 import { fileURLToPath } from "url";
 import { postRequestHandler } from "./infrastructure/middlewares/post-requests/post-request-handler.js";
+import { dotEnv } from "../process-env-variables/dotEnv.js";
+dotEnv()
 
 const app = express()
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.PORT;
 app.disable('x-powered-by')
 
 const filename = fileURLToPath(import.meta.url)
@@ -22,6 +24,7 @@ app.set('view engine', 'pug')
 
 app.use(postRequestHandler);
 processMessagesApiEndpoints(app)(MessagesRouter)
+
 
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`)
