@@ -5,10 +5,16 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { postRequestHandler } from "./infrastructure/middlewares/post-requests/post-request-handler.js";
 import { dotEnv } from "../process-env-variables/dotEnv.js";
+import { mongoDbRun } from "./infrastructure/repositories/mongodb/ports/MongoDBRepository.js";
+
+
 dotEnv()
+const PORT = process.env.PORT;
+const MONGO = process.env.MONGO ?? '';
+mongoDbRun(MONGO)
 
 const app = express()
-const PORT = process.env.PORT;
+
 app.disable('x-powered-by')
 
 const filename = fileURLToPath(import.meta.url)
